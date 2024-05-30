@@ -82,24 +82,24 @@ if(isset($_POST['update'])){
         <div class="form-row">
           <div class="form-group col-md-6 col-sm-12">
             <label for="firstName">First Name:</label>
-            <input type="text" class="form-control" name="first" value="<?php echo ucwords($row['first_name']); ?>" placeholder="Enter first name" required>
+            <input type="text" class="form-control" name="first" value="<?php echo ucwords($row['FirstName']); ?>" placeholder="Enter first name" required>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label for="lastName">Last Name:</label>
-            <input type="text" class="form-control" name="last" value="<?php echo ucwords($row['last_name']); ?>" placeholder="Enter last name" required>
+            <input type="text" class="form-control" name="last" value="<?php echo ucwords($row['LastName']); ?>" placeholder="Enter last name" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="birthday">Birthday:</label>
-            <input type="date" class="form-control" value="<?php echo $row['birthdate']; ?>" name="birthday" required>
+            <input type="date" class="form-control" value="<?php echo $row['Birthday']; ?>" name="birthday" required>
           </div>
           <div class="form-group col-md-6">
             <label for="sex">Sex:</label>
-            <select class="form-control" value="<?php echo $row['sex']; ?>" name="sex" required>  
+            <select class="form-control" value="<?php echo $row['Sex']; ?>" name="sex" required>  
               <option selected>Select Sex</option>
-              <option value="Male" <?php if($row['sex'] == 'Male') echo 'selected'?>>Male</option>
-              <option value="Female" <?php if($row['sex'] == 'Female') echo 'selected'?>>Female</option>
+              <option value="Male" <?php if($row['Sex'] == 'Male') echo 'selected'?>>Male</option>
+              <option value="Female" <?php if($row['Sex'] == 'Female') echo 'selected'?>>Female</option>
             </select>
           </div>
         </div>

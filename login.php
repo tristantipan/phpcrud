@@ -1,28 +1,31 @@
 <?php
-
+ 
 require_once('classes/database.php');
 $con = new database();
 session_start();
-
-$error = ""; // Initialize error variable
-
+// if (isset($_SESSION['user'])) {
+//   header('location:index.php');
+// }
+ 
 if (isset($_POST['login'])) {
   $username = $_POST['user'];
   $password = $_POST['pass'];
   $result = $con->check($username, $password);
-
+ 
   if ($result) {
       $_SESSION['user'] = $result['user'];
-<<<<<<< HEAD
-=======
-      $_SESSION['id'] = $result['user_id'];
->>>>>>> d093058afdd58be7890a900b2bb78dd0bba44aa7
+      $_SESSION['user_id'] = $result['user_id'];
+      $_SESSION['account_type'] = $result['account_type'];
+      if ($result['account_type'] == '0') {
       header('location:index.php');
-  } else {
+  } else if ($result['account_type']==1){
+    header('location:user_account.php');
       $error = "Incorrect username or password. Please try again.";
   }
+  exit();
 }
-
+}
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,55 +34,42 @@ if (isset($_POST['login'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.css">
-  <!-- Bootstrap CSS -->
+ 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="./includes/style.css">
+  <link rel="stylesheet" href="style.css">
   <style>
-  
+    .login-container {
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 100px;
+      height: auto;
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
-
+ 
 <div class="container-fluid login-container rounded shadow">
-  <h2 class="text-center login-heading mb-2">Login</h2>
-  
+  <h2 class="text-center mb-4">Login</h2>
   <form method="post">
     <div class="form-group">
-      <!-- <label for="username">Username:</label> -->
-      <input type="text" class="form-control <?php if (!empty($error)) echo 'error-input'; ?>" name="user" placeholder="Enter username">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" name="user" placeholder="Enter username ">
     </div>
     <div class="form-group">
-      <!-- <label for="password">Password:</label> -->
-      <input type="password" class="form-control <?php if (!empty($error)) echo 'error-input'; ?>" name="pass" placeholder="Enter password">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control"  name="pass" placeholder="Enter password">
     </div>
-    <?php if (!empty($error)) : ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <?php echo $error; ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="container">
-                          <div class="row gx-1">
-                            <div class="col">
-                            <input type="submit" class="btn btn-primary btn-block" value="Log In" name="login">
-                            </div>
-                            <div class="col">
-                            <a type="submit" class="btn btn-danger btn-block" href="signup.php">Sign Up</a>
-                            </div>
-                          </div>
-                        </div>
-   
-   
-  </form>
-</div>
-
+    <div class="container">
+      <div class="row gx-1">
+        <div class="col"><input type="submit" value="Login" name="login" class="btn btn-primary btn-block"></div>
+        <div class="col"><a type="submit" class="btn btn-danger btn-block"href="register.php">Sign Up</a></div>
+      </div>
+ 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="./bootstrap-5.3.3-dist/js/bootstrap.js"></script>
-<!-- Bootsrap JS na nagpapagana ng danger alert natin -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
